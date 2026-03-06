@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f2ee; --surface: #ffffff; --ink: #1a1714;
+      --muted: #6b6560; --accent: #c84b2f; --border: #e2ddd8; --radius: 12px;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+    .container { width: 100%; max-width: 520px; }
+    .header { margin-bottom: 2.5rem; opacity: 0; transform: translateY(16px); animation: fadeUp 0.5s ease forwards; }
+    .lang-switch { display: flex; justify-content: flex-end; margin-bottom: 1.25rem; gap: 6px; }
+    .lang-switch a { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: 6px; border: 1.5px solid transparent; transition: all 0.2s; }
+    .lang-switch a.active { color: var(--accent); border-color: var(--accent); }
+    .lang-switch a:hover:not(.active) { border-color: var(--border); color: var(--ink); }
+    h1 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; line-height: 1.15; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; opacity: 0; transform: translateY(16px); animation: fadeUp 0.5s ease 0.1s forwards; }
+    .type-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.75rem; }
+    .type-btn { background: var(--bg); border: 1.5px solid transparent; border-radius: 8px; padding: 12px; cursor: pointer; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--muted); transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .type-btn .icon { font-size: 20px; }
+    .type-btn:hover { border-color: var(--border); color: var(--ink); }
+    .type-btn.active { background: #fff5f3; border-color: var(--accent); color: var(--accent); }
+    .field { margin-bottom: 1.25rem; }
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: 0.01em; }
+    input, textarea { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; outline: none; transition: border-color 0.2s; }
+    input:focus, textarea:focus { border-color: var(--accent); background: white; }
+    textarea { resize: vertical; min-height: 120px; }
+    input[type="hidden"] { display: none; }
+    button[type="submit"] { width: 100%; background: var(--accent); color: white; border: none; border-radius: 8px; padding: 13px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: opacity 0.2s, transform 0.15s; letter-spacing: 0.01em; }
+    button[type="submit"]:hover { opacity: 0.9; transform: translateY(-1px); }
+    button[type="submit"]:active { transform: translateY(0); }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="lang-switch">
+      <a href="https://trupax8.github.io/monetocontact/de">DE</a>
+      <a href="https://trupax8.github.io/monetocontact/en" class="active">EN</a>
+    </div>
+    <h1>How can we<br>help you?</h1>
+    <p class="subtitle">Send us a message – we'll get back to you as soon as possible.</p>
+  </div>
+  <div class="card">
+    <div class="type-selector">
+      <button type="button" class="type-btn active" onclick="selectType(this, 'Bug Report')">
+        <span class="icon">🐛</span> Bug Report
+      </button>
+      <button type="button" class="type-btn" onclick="selectType(this, 'Feature Request')">
+        <span class="icon">✨</span> Feature Request
+      </button>
+    </div>
+    <form action="https://formspree.io/f/xaqpyygb" method="POST">
+      <input type="hidden" name="type" id="typeField" value="Bug Report">
+      <div class="field">
+        <label for="email">Your Email</label>
+        <input type="email" name="email" id="email" placeholder="name@example.com" required>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" placeholder="Describe your issue or idea..." required></textarea>
+      </div>
+      <button type="submit">Submit →</button>
+    </form>
+  </div>
+</div>
+<script>
+  function selectType(btn, value) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('typeField').value = value;
+  }
+</script>
+</body>
+</html>
